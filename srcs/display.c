@@ -5,8 +5,8 @@
 /*                                                 +:+:+   +:    +:  +:+:+    */
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
-/*   Created: 2019/03/25 11:50:30 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 15:44:16 by matheme     ###    #+. /#+    ###.fr     */
+/*   Created: 2019/05/02 17:39:20 by matheme      #+#   ##    ##    #+#       */
+/*   Updated: 2019/05/02 17:39:51 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -24,7 +24,14 @@ void		print_image(t_monitor *m)
 	display_fractol(m);
 	mlx_put_image_to_window(m->env.mlx_ptr,
 						m->env.win_ptr, m->env.img_ptr, 0, 0);
-	user_interface(m);
+	user_interface(m, m->env.mlx_ptr, m->env.win_ptr);
 	mlx_pixel_put(m->env.mlx_ptr, m->env.win_ptr,
 					WIN_SIZE_X / 2, WIN_SIZE_Y / 2, 0xff0000);
+}
+
+int			display_fractol(t_monitor *m)
+{
+	if (generate_thread(m) == -1)
+		return (-1);
+	return (0);
 }

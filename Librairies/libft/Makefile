@@ -6,94 +6,107 @@
 #    By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2018/10/03 11:06:26 by yalabidi     #+#   ##    ##    #+#        #
-#    Updated: 2019/04/26 19:22:32 by matheme     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/04/30 16:26:23 by matheme     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
 
-NAME=libft.a
+NAME		= libft.a
 
-HEADER=libft.h
+HEADER		= libft.h
+SRC_PATH	= .
+SRC_NAME	= ft_memcpy.c\
+			  ft_strncat.c\
+			  ft_memmove.c\
+			  ft_memset.c\
+			  ft_strcpy.c\
+			  ft_strncpy.c\
+			  ft_bzero.c\
+			  ft_memccpy.c\
+			  ft_strdup.c\
+			 ft_memchr.c\
+			 ft_strlcat.c\
+			  ft_memcmp.c\
+			  ft_strcat.c\
+			  ft_strlen.c\
+			  ft_strchr.c\
+			  ft_strrchr.c\
+			  ft_strstr.c\
+			  ft_strnstr.c\
+			  ft_strcmp.c\
+			  ft_strncmp.c\
+			  ft_atoi.c\
+			  ft_isalpha.c\
+			  ft_isalnum.c\
+			  ft_isascii.c\
+			  ft_isdigit.c\
+			  ft_isprint.c\
+			  ft_toupper.c\
+			  ft_tolower.c\
+			  ft_putchar.c\
+			  ft_putstr.c\
+			  ft_putendl.c\
+			  ft_putnbr.c\
+			  ft_nbrlen.c\
+			  ft_putchar_fd.c\
+			  ft_putstr_fd.c\
+			  ft_putendl_fd.c\
+			  ft_putnbr_fd.c\
+			  ft_memalloc.c\
+			  ft_memdel.c\
+			  ft_strnew.c\
+			  ft_strdel.c\
+			  ft_strclr.c\
+			  ft_striter.c\
+			  ft_striteri.c\
+			  ft_strmap.c\
+			  ft_strmapi.c\
+			  ft_strequ.c\
+			  ft_strnequ.c\
+			  ft_strsub.c\
+			  ft_strjoin.c\
+			  ft_strtrim.c\
+			  ft_count_word.c\
+			  ft_strsplit.c\
+			  ft_itoa.c\
+			  ft_power.c\
+			  ft_putadresse.c\
+			  ft_puttab.c\
+			  get_next_line.c\
+			  ft_maxbeetween.c\
+			  ft_lessbeetween.c\
+			  ft_ftoa.c
 
-OBJ= 	ft_memcpy.o\
-		ft_strncat.o\
-		ft_memmove.o\
-		ft_memset.o\
-		ft_strcpy.o\
-		ft_strncpy.o\
-		ft_bzero.o\
-		ft_memccpy.o\
-		ft_strdup.o\
-		ft_memchr.o\
-		ft_strlcat.o\
-		ft_memcmp.o\
-		ft_strcat.o\
-		ft_strlen.o\
-		ft_strchr.o\
-		ft_strrchr.o\
-		ft_strstr.o\
-		ft_strnstr.o\
-		ft_strcmp.o\
-		ft_strncmp.o\
-		ft_atoi.o\
-		ft_isalpha.o\
-		ft_isalnum.o\
-		ft_isascii.o\
-		ft_isdigit.o\
-		ft_isprint.o\
-		ft_toupper.o\
-		ft_tolower.o\
-		ft_putchar.o\
-		ft_putstr.o\
-		ft_putendl.o\
-		ft_putnbr.o\
-		ft_nbrlen.o\
-		ft_putchar_fd.o\
-		ft_putstr_fd.o\
-		ft_putendl_fd.o\
-		ft_putnbr_fd.o\
-		ft_memalloc.o\
-		ft_memdel.o\
-		ft_strnew.o\
-		ft_strdel.o\
-		ft_strclr.o\
-		ft_striter.o\
-		ft_striteri.o\
-		ft_strmap.o\
-		ft_strmapi.o\
-		ft_strequ.o\
-		ft_strnequ.o\
-		ft_strsub.o\
-		ft_strjoin.o\
-		ft_strtrim.o\
-		ft_count_word.o\
-		ft_strsplit.o\
-		ft_itoa.o\
-		ft_power.o\
-		ft_putadresse.o\
-		ft_puttab.o\
-		get_next_line.o\
-		ft_maxbeetween.o\
-		ft_lessbeetween.o\
-		ft_ftoa.o
+OBJ_PATH    = obj
+OBJ_NAME	= $(SRC_NAME:.c=.o)
+INC_PATH	= .
+HEADER		= $(INC_PATH)/libft.h
 
-CC=-Wall -Werror -Wextra
+CC			= gcc
+
+SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
+OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
+CFLAGS		= -Wall -Werror -Wextra
 
 all : $(NAME)
+	@echo "\033[48;5;22m\033[38;5;15m Libft Compiler \033[0m"
 
 $(NAME) : $(OBJ)
 
-%.o : %.c
-	@echo  "\033[0;32m [OK] \033[0m       \033[0;33m Compiling:\033[0m" $<
-	@gcc -I$(HEADER) $(CC) -c $^ -o $@
-	@ar rs $(NAME) $@
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
+	@mkdir $(OBJ_PATH) 2> /dev/null || true
+	@$(CC) -I $(INC_PATH) $(CFLAGS) -c $< -o $@
+	@ar rc $(NAME) $@
+	@printf "\033[48;5;28m "
 
 clean :
-	@echo  "\033[0;35m [SUPPRESSION] \033[0;33m terminer:\033[0m \033[0;0mall"
 	@rm -f $(OBJ)
+	@rmdir $(OBJ_PATH) 2> /dev/null || true
+
 fclean : clean
-	@echo  "\033[0;31m [LIBRAIRIE SUPPRIMER]\033[0m"
 	@rm -f $(NAME)
 
 re : fclean all
 
+nonor:
+	@norminette *.c *.h

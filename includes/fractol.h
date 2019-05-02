@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/21 14:09:19 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 18:53:16 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:10:16 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,13 +27,14 @@
 # include <math.h>
 # include <pthread.h>
 
-
+# define NB_THREAD 8
 # define UINT unsigned int
+
 /*
 ** size X and Y of windows
 */
-# define WIN_SIZE_X 800
-# define WIN_SIZE_Y 800
+# define WIN_SIZE_X 700
+# define WIN_SIZE_Y 700
 
 /*
 ** define for keyboard_keys
@@ -52,6 +53,7 @@
 # define F4			118
 # define F5			96
 # define TAB		48
+
 /*
 ** define for mouse button
 */
@@ -61,11 +63,11 @@
 /*
 ** nombre complexe
 */
-typedef struct		s_complexe
+typedef struct			s_complexe
 {
-	double			r;
-	double			i;
-}					t_complexe;
+	double				r;
+	double				i;
+}						t_complexe;
 
 /*
 ** struct for the control of the environnemnent
@@ -102,16 +104,13 @@ typedef struct			s_fractal
 	unsigned int		color;
 }						t_fractal;
 
-
 typedef	struct			s_multhread
 {
 	pthread_t			pth;
-	unsigned int		id;
 	double				x;
 	double				y;
 	double				x_max;
 	double				y_max;
-	struct s_multhread	*next;
 }						t_multithread;
 
 typedef	struct			s_monitor
@@ -119,8 +118,7 @@ typedef	struct			s_monitor
 	struct s_env		env;
 	struct s_image		img;
 	struct s_fractal	frcl;
-	struct s_multhread	*thread;
-	unsigned int		nb_thread;
+	t_multithread		thread[NB_THREAD];
 	unsigned char		stopjulia;
 	unsigned char		disableui;
 	unsigned int		id;
@@ -129,25 +127,35 @@ typedef	struct			s_monitor
 /*
 ** allow events
 */
-int					keyboard_events(int key, void *data);
-int					mouse_events(int button, int x, int y, void *data);
-int					mouse_move_events(int x, int  y, void *data);
+int						keyboard_events(int key, void *data);
+int						mouse_events(int button, int x, int y, void *data);
+int						mouse_move_events(int x, int y, void *data);
 
 /*
 ** display fractal
 */
 
-int					display_fractol(t_monitor *monitor);
-void				put_pixel_to_img(unsigned int *img, int x, int y, unsigned int color);
-void				print_image(t_monitor *monitor);
-void				user_interface(t_monitor *m);
+int						display_fractol(t_monitor *monitor);
+void					put_pixel_to_img(unsigned int *img, int x, int y,
+														unsigned int color);
+void					print_image(t_monitor *monitor);
+void					user_interface(t_monitor *m, void *mlx, void *win);
 
 /*
 ** multithreading
 */
 
-int					generate_thread(t_monitor *m);
-void				display_fractol_section(t_monitor *m, t_multithread *thread);
+int						generate_thread(t_monitor *m);
+void					init_thread(unsigned char nb_thread, t_monitor *m);
+void					display_fractol_section(t_monitor *m, t_multithread t);
 
-int					usage();
+/*
+** complexe
+*/
+
+t_complexe				new_complexe(t_complexe new, double r, double i);
+t_complexe				algo_complexe(t_complexe z, t_complexe c, char *str);
+
+int						usage();
+int						fractol();
 #endif

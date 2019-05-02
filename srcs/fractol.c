@@ -6,7 +6,7 @@
 /*   By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/03/21 14:08:50 by matheme      #+#   ##    ##    #+#       */
-/*   Updated: 2019/04/25 16:38:41 by matheme     ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/05/02 18:09:25 by matheme     ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -47,40 +47,21 @@ static void	init_img(t_env env, t_image *m)
 	m->img_str = (unsigned int *)str;
 }
 
-static int	fractol(char *name)
+int			fractol(char *name)
 {
 	t_monitor	mtr;
 
-	mtr.nb_thread = 8;
 	mtr.stopjulia = 0;
 	mtr.disableui = 0;
+	mtr.id = 0;
 	init_fractal(&mtr.frcl, name);
 	init_env(&mtr.env, mtr.frcl, mtr.frcl.name);
+	init_thread(NB_THREAD, &mtr);
 	init_img(mtr.env, &mtr.img);
 	mlx_mouse_hook(mtr.env.win_ptr, mouse_events, (void*)&mtr);
 	mlx_hook(mtr.env.win_ptr, 6, 1L < 6, mouse_move_events, &mtr);
 	mlx_hook(mtr.env.win_ptr, 2, 1, keyboard_events, (void*)&mtr);
 	print_image(&mtr);
 	mlx_loop(mtr.env.mlx_ptr);
-	return (0);
-}
-
-/*
-** main of program
-*/
-
-int			main(int ac, char **av)
-{
-	int i;
-
-	i = 1;
-	if (ac != 2)
-		return (usage());
-	if (ft_strcmp(av[1], "Mandelbrot") != 0 && ft_strcmp(av[1], "Julia") != 0 &&
-		ft_strcmp(av[1], "Deep_sheep") != 0 &&
-		ft_strcmp(av[1], "Appolonius") != 0 &&
-		ft_strcmp(av[1], "Feigenbaum") != 0)
-		return (usage());
-	fractol(av[i]);
 	return (0);
 }
