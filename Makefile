@@ -6,7 +6,7 @@
 #    By: matheme <matheme@student.le-101.fr>        +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2019/03/14 16:56:52 by matheme      #+#   ##    ##    #+#        #
-#    Updated: 2019/05/02 17:54:00 by matheme     ###    #+. /#+    ###.fr      #
+#    Updated: 2019/05/27 20:38:45 by matheme     ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -25,7 +25,7 @@ NAME_SRC	=	fractol.c keyboard_event.c calcul_fractal.c display.c \
 				multithreading_display.c error.c ui.c main.c mouse_event.c \
 				calcul_fractal2.c
 
-#nom des ficher objects (*.o)
+# nom des ficher objects (*.o)
 NAME_OBJ = $(NAME_SRC:.c=.o)
 
 #les sources
@@ -35,12 +35,12 @@ HEADER	= $(INC_PATH)/fractol.h
 # les objects
 OBJ		= $(addprefix $(OBJ_PATH)/,$(NAME_OBJ))
 
-#compilateur + flags + framework
+# compilateur + flags + framework
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 FRAMEWORKS	= -lmlx -framework OpenGL -framework AppKit
 
-#librairies
+# librairies
 LIBFT				= $(LIB_PATH)/libft
 LIBFT.A				= $(LIBFT)/libft.a
 MINILIBX			= $(LIB_PATH)/minilibx
